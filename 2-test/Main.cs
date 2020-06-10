@@ -129,7 +129,7 @@ namespace Shop
         {
             double price = product.GetDiscountPrice(user);
             user.ReduceBalance(price);
-            Console.WriteLine("user " + user.Name + " bought " + product.Name + " price " + price + "hryvnia");
+            Console.WriteLine("user " + user.Name + " bought " + product.Name + " price " + price + " hryvnia");
         }
     }
 
@@ -137,6 +137,8 @@ namespace Shop
     {
         static void Main()
         {
+            Console.Write("(owo)");
+
             User user1 = new User(
                 "Petro",
                 21,
@@ -194,6 +196,8 @@ namespace Shop
 
             User currentUser = null;
 
+            Informer informer = new Informer();
+
             while(true) 
             {
                 
@@ -206,7 +210,7 @@ namespace Shop
                 Console.Write("> ");
                 str = Console.ReadLine();
                 if (str == "exit") break;
-                if (str == "pricelist") 
+                else if (str == "pricelist") 
                 {
                     Console.WriteLine("price list:");
                     Console.WriteLine("\n");
@@ -237,7 +241,7 @@ namespace Shop
                     Console.WriteLine("Type " + cat.Type);
                     Console.WriteLine("\n");
                 }
-                if (str == "user")
+                else if (str == "user")
                 {
                     Console.Write("user name is ");
                     string userLog = Console.ReadLine();
@@ -251,20 +255,20 @@ namespace Shop
                         
                     }
                 }
-                if (str == "userlist")
+                else if (str == "userlist")
                 {
                     for (int i = 0; i < userlist.Length; i++)
                     {
                         Console.WriteLine(userlist[i].Name);
                     }
                 }
-                if (str == "currentuser") 
+                else if (str == "currentuser") 
                 {
                     if (currentUser == null) { Console.WriteLine("no current user"); }
                     else { Console.WriteLine(currentUser.Name); }
 
                 }
-                if (str == "balance") 
+                else if (str == "balance") 
                 {
                     if (currentUser != null) 
                     {
@@ -275,27 +279,68 @@ namespace Shop
                         Console.WriteLine("no current user");
                     }
                 }
-                if (str == "list") 
+                else if (str == "list") 
                 {
                     for (int i = 0; i < products.Length; i++)
                     {
                         Console.WriteLine("product " + i + " " + products[i].Name + " price " + products[i].Price);
                     }
                 }
-                if (str == "info")
+                else if (str == "info")
                 {
                     Console.Write("number product ");
                     string infoid = Console.ReadLine();
                     int infonumber = Convert.ToInt32(infoid);
                     // write info
                 }
-                if (str == "buy")
+                else if (str == "buy")
                 {
-                    //buy
+                    Console.Write("number product ");
+                    string id = Console.ReadLine();
+                    int productnumber = Convert.ToInt32(id);
+                    if (productnumber >= 0 && productnumber < products.Length)
+                    {
+                        if (products[productnumber].Price < currentUser.Balance)
+                        {
+                            informer.Buy(currentUser, products[productnumber]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("not enough money");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("its not product");
+                    }
+                }
+                else if (str == "userinfo")
+                {
+                    Console.WriteLine("name " + currentUser.Name);
+                    Console.WriteLine("age " + currentUser.Age);
+                    Console.WriteLine("phone number " + currentUser.Phone_number);
+                    Console.WriteLine("balance " + currentUser.Balance);
+                    Console.WriteLine("spend " + currentUser.Spend);
+                }
+                else if (str == "help") {
+                    Console.WriteLine("- exit");
+                    Console.WriteLine("- pricelist");
+                    Console.WriteLine("- user - switch user");
+                    Console.WriteLine("- userlist");
+                    Console.WriteLine("- currentuser - show name current user");
+                    Console.WriteLine("- balance");
+                    Console.WriteLine("- list - list with product numbers");
+                    Console.WriteLine("- info - nothing");
+                    Console.WriteLine("- buy - buy product");
+                    Console.WriteLine("- userinfo");
+                }
+                else 
+                {
+                    Console.WriteLine("Unknown command. Enter 'help' for information.");
                 }
             }
 
-            Console.WriteLine("(owo)");
+            Console.Write("(uwu)");
         }
     }
 }
