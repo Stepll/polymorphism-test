@@ -10,6 +10,11 @@ namespace Shop
         public double Balance {get; private set;}
         public double Spend {get; private set;}
 
+        public User()
+        {
+            this.Name = "null";
+            this.Age = 18;
+        }
         public User(string Name, int Age)
         {
             this.Name = Name;
@@ -144,8 +149,7 @@ namespace Shop
                 "0635814999",
                 70
             );
-            Console.WriteLine("price list:");
-            Console.WriteLine("\n");
+            
             Cloth tshirt = new Cloth(
                 "tshirt",
                 98,
@@ -153,24 +157,12 @@ namespace Shop
                 "silk"
             ); 
 
-            Console.WriteLine("name " + tshirt.Name);
-            Console.WriteLine("price " + tshirt.Price);
-            Console.WriteLine("manufacturer " + tshirt.Manufacturer);
-            Console.WriteLine("material " + tshirt.Material);
-            Console.WriteLine("\n");
-
             Fruits banana = new Fruits(
                 "banana",
                 14,
                 "Africa",
                 "honey banana"
-            );
-
-            Console.WriteLine("name " + banana.Name);
-            Console.WriteLine("price " + banana.Price);
-            Console.WriteLine("manufacturer " + banana.Manufacturer);
-            Console.WriteLine("variety " + banana.Variety);
-            Console.WriteLine("\n");
+            );            
 
             Phone samsungGalaxy = new Phone(
                 "Samsung Galaxy J-500H",
@@ -181,14 +173,6 @@ namespace Shop
                 "15 Mp"
             );
 
-            Console.WriteLine("name " + samsungGalaxy.Name);
-            Console.WriteLine("price " + samsungGalaxy.Price);
-            Console.WriteLine("manufacturer " + samsungGalaxy.Manufacturer);
-            Console.WriteLine("size " + samsungGalaxy.Size);
-            Console.WriteLine("Operatin system " + samsungGalaxy.OperatingSystem);
-            Console.WriteLine("Camera resolution " + samsungGalaxy.CameraResolution);
-            Console.WriteLine("\n");
-
             Animal cat = new Animal(
                 "mursik",
                 455,
@@ -196,12 +180,120 @@ namespace Shop
                 "cat"
             );
 
-            Console.WriteLine("name " + cat.Name);
-            Console.WriteLine("price " + cat.Price);
-            Console.WriteLine("manufacturer " + cat.Manufacturer);
-            Console.WriteLine("Type " + cat.Type);
-            Console.WriteLine("\n");
+            User[] userlist = new User[] {
+                user1,
+                user2
+            };
 
+            Product[] products = new Product[] { // upcast
+                tshirt,
+                banana,
+                samsungGalaxy,
+                cat
+            };
+
+            User currentUser = null;
+
+            while(true) 
+            {
+                
+                // currentUser = user1;
+                // Console.WriteLine(currentUser.Name);
+                // currentUser.Name = "null";
+                // Console.WriteLine(currentUser.Name);
+                // Console.WriteLine(user1.Name);
+                string str = "";
+                Console.Write("> ");
+                str = Console.ReadLine();
+                if (str == "exit") break;
+                if (str == "pricelist") 
+                {
+                    Console.WriteLine("price list:");
+                    Console.WriteLine("\n");
+
+                    Console.WriteLine("name " + tshirt.Name);
+                    Console.WriteLine("price " + tshirt.Price);
+                    Console.WriteLine("manufacturer " + tshirt.Manufacturer);
+                    Console.WriteLine("material " + tshirt.Material);
+                    Console.WriteLine("\n");
+
+                    Console.WriteLine("name " + banana.Name);
+                    Console.WriteLine("price " + banana.Price);
+                    Console.WriteLine("manufacturer " + banana.Manufacturer);
+                    Console.WriteLine("variety " + banana.Variety);
+                    Console.WriteLine("\n");
+
+                    Console.WriteLine("name " + samsungGalaxy.Name);
+                    Console.WriteLine("price " + samsungGalaxy.Price);
+                    Console.WriteLine("manufacturer " + samsungGalaxy.Manufacturer);
+                    Console.WriteLine("size " + samsungGalaxy.Size);
+                    Console.WriteLine("Operatin system " + samsungGalaxy.OperatingSystem);
+                    Console.WriteLine("Camera resolution " + samsungGalaxy.CameraResolution);
+                    Console.WriteLine("\n");
+
+                    Console.WriteLine("name " + cat.Name);
+                    Console.WriteLine("price " + cat.Price);
+                    Console.WriteLine("manufacturer " + cat.Manufacturer);
+                    Console.WriteLine("Type " + cat.Type);
+                    Console.WriteLine("\n");
+                }
+                if (str == "user")
+                {
+                    Console.Write("user name is ");
+                    string userLog = Console.ReadLine();
+                    for (int i = 0; i < userlist.Length; i++)
+                    {
+                        if (userlist[i].Name == userLog) 
+                        {
+                            currentUser = userlist[i];
+                            Console.WriteLine("current user " + currentUser.Name);
+                        } 
+                        
+                    }
+                }
+                if (str == "userlist")
+                {
+                    for (int i = 0; i < userlist.Length; i++)
+                    {
+                        Console.WriteLine(userlist[i].Name);
+                    }
+                }
+                if (str == "currentuser") 
+                {
+                    if (currentUser == null) { Console.WriteLine("no current user"); }
+                    else { Console.WriteLine(currentUser.Name); }
+
+                }
+                if (str == "balance") 
+                {
+                    if (currentUser != null) 
+                    {
+                        Console.WriteLine(currentUser.Balance);
+                    }
+                    else
+                    {
+                        Console.WriteLine("no current user");
+                    }
+                }
+                if (str == "list") 
+                {
+                    for (int i = 0; i < products.Length; i++)
+                    {
+                        Console.WriteLine("product " + i + " " + products[i].Name + " price " + products[i].Price);
+                    }
+                }
+                if (str == "info")
+                {
+                    Console.Write("number product ");
+                    string infoid = Console.ReadLine();
+                    int infonumber = Convert.ToInt32(infoid);
+                    // write info
+                }
+                if (str == "buy")
+                {
+                    //buy
+                }
+            }
 
             Console.WriteLine("(owo)");
         }
