@@ -15,17 +15,26 @@ namespace Shop
 
     class Phone : Product 
     {
-
+        public override void getInfo()
+        {
+            Console.WriteLine("phone name " + Name + "\nprice " + price + "\nggwp");
+        }
     }
 
     class Cat : Product 
     {
-
+        public override void getInfo()
+        {
+            Console.WriteLine("cat name " + Name + "\nprice " + price + "\nnyan(owo)");
+        }
     }
 
     class Apple : Product
     {
-
+        public override void getInfo()
+        {
+            Console.WriteLine("product apple " + Name + "\nprice " + price + "\nbad apple!");
+        }
     }
 
     
