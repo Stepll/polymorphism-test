@@ -50,7 +50,7 @@ namespace Shop
         public string Name {get; set;}
         public double Price {get; set;}
         public string Manufacturer {get; set;}
-        public double GetDiscountPrice(User user)
+        public virtual double GetDiscountPrice(User user)
         {
             if (user.Spend < 1000)
             {
@@ -62,7 +62,12 @@ namespace Shop
                 return Price * 0.93;
             }
 
-            return Price * 0.85;
+            if (user.Spend < 20000)
+            {
+                return Price * 0.85;
+            }
+
+            return Price * 0.7;
         }
 
     }
@@ -121,6 +126,11 @@ namespace Shop
             Manufacturer = manufacturer;
             Type = type;
         }
+
+        public override double GetDiscountPrice(User user)
+        {
+            return Price * 0.5;
+        }
     }
 
     class Informer 
@@ -137,7 +147,7 @@ namespace Shop
     {
         static void Main()
         {
-            Console.Write("(owo)");
+            Console.WriteLine("(owo)");
 
             User user1 = new User(
                 "Petro",
@@ -333,6 +343,13 @@ namespace Shop
                     Console.WriteLine("- info - nothing");
                     Console.WriteLine("- buy - buy product");
                     Console.WriteLine("- userinfo");
+                }
+                else if (str == "addbalance") 
+                {
+                    Console.Write("add balance ");
+                    string balancestr = Console.ReadLine();
+                    int balance = Convert.ToInt32(balancestr);
+                    currentUser.BalanceReplenishment(balance);
                 }
                 else 
                 {
